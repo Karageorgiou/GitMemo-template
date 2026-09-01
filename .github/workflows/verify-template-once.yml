@@ -1,0 +1,47 @@
+name: Verify GitMemo Template Once
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out template repository
+        uses: actions/checkout@v7
+
+      - name: Set up Go
+        uses: actions/setup-go@v7
+        with:
+          go-version: '1.27.0'
+
+      - name: Install immutable GitMemo v0.4.0
+        run: go install github.com/Karageorgiou/GitMemo/cmd/gitmemo@v0.4.0
+
+      - name: Generate expected template
+        run: |
+          EXPECTED="$RUNNER_TEMP/expected"
+          rm -rf "$EXPECTED"
+          "$(go env GOPATH)/bin/gitmemo" init "$EXPECTED"
+          "$(go env GOPATH)/bin/gitmemo" index --check "$EXPECTED"
+          "$(go env GOPATH)/bin/gitmemo" validate "$EXPECTED"
+
+      - name: Compare complete template tree byte-for-byte
+        run: |
+          EXPECTED="$RUNNER_TEMP/expected"
+          ACTUAL="$RUNNER_TEMP/actual"
+          rm -rf "$ACTUAL"
+          mkdir -p "$ACTUAL"
+          tar \
+            --exclude='./.git' \
+            --exclude='./.github/workflows/verify-template-once.yml' \
+            -cf - . | tar -xf - -C "$ACTUAL"
+
+          echo "Comparing generated v0.4.0 init output with committed template..."
+          diff -qr "$EXPECTED" "$ACTUAL"
+          echo "Template exactly matches GitMemo v0.4.0 init output."
