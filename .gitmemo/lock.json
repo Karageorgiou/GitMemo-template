@@ -1,0 +1,29 @@
+{
+  "lock_version": 1,
+  "source_repository": "Karageorgiou/GitMemo",
+  "gitmemo_version": "v0.3.0",
+  "repository_format": 1,
+  "schema_version": 1,
+  "contract_version": 5,
+  "contract_sha256": "1510bbd00481f0363a355a446df1d30eef2407e84da87a1a295f12acce613b0f",
+  "files_sha256": {
+    "MEMORY_PROTOCOL.md": "d0f9064b890400131adc0404df5a84a759b1472878c5b343bf30bd6d4d7d9408",
+    "docs/EXTENDING_GITMEMO.md": "1f18d297ce0ec13a018d8d772653876726c8880a0076882b32747227c8fcf69c",
+    "docs/MEMORY_CONTENT_FORMAT.md": "989195209f3d008365f31c6492fad3175418c19d54a62c0280b502d08ce28c8e",
+    "docs/MEMORY_SCHEMA.md": "42736c5a46fa7f3d81c16d4680f576e51bf694f74655d7ee63a410af6aaa8452",
+    "docs/REPOSITORY_VALIDATION.md": "fdd4e888a3f8a089a7e7ef4d9d3f21dbe1745b7e339c5dfe7a51d57c66650c6e",
+    "docs/SOURCES.md": "0c40e73c20882b38ab9acede7372dc4b0dfa22c84d0189e836073dedd98d2988",
+    "docs/TAXONOMY.md": "3b789082c273e606a0b804d7cb9203f4777f6083eb791a670d8b0dd77efb7bd7",
+    "docs/TRUST_MODEL.md": "f9ee899c73b1924c6bc5d2d4e2d9cc32c003d54b95976f749b6e936dee2865c9",
+    "docs/USER_COMMANDS.md": "3f161805d70f52504e946637612762c7784b298912e6e1d2246a2562680556e8",
+    "schema/memory-item.schema.json": "b4d03cb3fa85e95c98275701ffb44c4a14088bcf0b41cfb6a9dc5a092ab3b69a",
+    "templates/correction.md": "400a57ac853a3e28381235094401fadeebba1bc3e18745295e85e267b080dfc6",
+    "templates/decision.md": "facbf0490a5e138f43a73636a8b8341764bc055d1df03907ed30ebaa04d8038b",
+    "templates/fact.md": "d3d03a2277654875677eb9641f7073beb11e1072f78244135018dc6cdc05c226",
+    "templates/milestone.md": "8c54066877448dc1fea9277bdfb65ed4cb6e51197ad328e52f9215f7c0e96061",
+    "templates/open_loop.md": "35c7a3091de80a0e2258ae33dd72b51390fbbfd92aebe0be55e65a9e04ef1f8d",
+    "templates/preference.md": "f909733d2efd7994a92427328bbe6ba700ca500f358cbae342c357577f81cb63",
+    "templates/reference.md": "9dade8d57fa99a1e3ae156ad6e7677cc06b246f0cd57bcb6ce9de71a346ee307",
+    "templates/state.md": "a83248bd386bbbebec16525be3f687be995bc33b697845a864cd5214baf8c6ce"
+  }
+}
