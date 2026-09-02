@@ -1,0 +1,33 @@
+{
+  "index_version": 2,
+  "record_count": 0,
+  "memory_source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "id_shard_hash_hex_characters": 3,
+  "term_shard_hash_hex_characters": 3,
+  "id_list_chunk_size": 1024,
+  "term_posting_chunk_size": 1024,
+  "max_stored_term_postings": 32768,
+  "term_fields": [
+    "title",
+    "aliases",
+    "projects",
+    "topics",
+    "tags",
+    "entities",
+    "type",
+    "lifecycle",
+    "open_loop_status",
+    "summary"
+  ],
+  "layout": {
+    "by_id": "index/by-id/\u003cfirst-2-sha256-hex\u003e/\u003cthird-sha256-hex\u003e.json",
+    "by_project": "index/by-project/\u003cproject-slug\u003e.json",
+    "by_topic": "index/by-topic/\u003ctopic-slug\u003e.json",
+    "by_tag": "index/by-tag/\u003ctag-slug\u003e.json",
+    "by_type": "index/by-type/\u003cmemory-type\u003e.json",
+    "by_lifecycle": "index/by-lifecycle/\u003clifecycle\u003e.json",
+    "by_open_loop_status": "index/by-open-loop-status/\u003cstatus\u003e.json",
+    "terms": "index/terms/\u003csha256-term-prefix\u003e.json",
+    "term_postings": "index/term-postings/\u003csha256-prefix\u003e/\u003cfull-sha256\u003e/\u003cchunk\u003e.json"
+  }
+}
