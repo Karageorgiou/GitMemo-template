@@ -1,0 +1,54 @@
+name: One-shot Runethread template v0.6.0 migration
+
+on:
+  push:
+    branches:
+      - runethread/sync-v0.6.0
+
+permissions:
+  contents: write
+
+jobs:
+  migrate:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out template branch
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Set up Go
+        uses: actions/setup-go@v7
+        with:
+          go-version: '1.27.0'
+
+      - name: Install immutable Runethread v0.6.0
+        run: go install github.com/runethread/core/cmd/runethread@v0.6.0
+
+      - name: Upgrade exact predecessor template
+        run: |
+          "$(go env GOPATH)/bin/runethread" upgrade .
+
+      - name: Verify native index freshness
+        run: |
+          "$(go env GOPATH)/bin/runethread" index --check .
+
+      - name: Verify native repository
+        run: |
+          "$(go env GOPATH)/bin/runethread" validate .
+          test ! -e .gitmemo
+          test -f .runethread/config.json
+          test -f .runethread/lock.json
+          grep -F '"runethread_version": "v0.6.0"' .runethread/config.json
+
+      - name: Commit verified migrated template
+        run: |
+          rm .github/workflows/one-shot-runethread-v0.6.0.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --check
+          git diff --cached --quiet && { echo "Expected migration changes but found none" >&2; exit 1; }
+          git commit -m "chore: sync template to Runethread v0.6.0"
+          git push origin HEAD:runethread/sync-v0.6.0
