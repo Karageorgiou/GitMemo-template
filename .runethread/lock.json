@@ -1,7 +1,7 @@
 {
   "lock_version": 2,
   "source_repository": "runethread/core",
-  "runethread_version": "v0.6.0",
+  "runethread_version": "v0.7.0",
   "repository_format": 2,
   "schema_version": 1,
   "contract_version": 7,
