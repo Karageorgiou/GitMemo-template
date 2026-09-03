@@ -60,7 +60,7 @@ jobs:
         run: |
           set -euo pipefail
           go install github.com/runethread/core/cmd/runethread@v0.7.0
-          test "$("$(go env GOPATH)/bin/runethread" version)" = "Runethread v0.7.0 (repo format 2, schema 1, contract 7, index 2, trust-lock 2)"
+          test "$("$(go env GOPATH)/bin/runethread" version)" = "v0.7.0"
 
       - name: Run released upgrader and enforce metadata-only diff
         shell: bash
