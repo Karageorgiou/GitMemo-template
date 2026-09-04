@@ -1,0 +1,57 @@
+name: Migrate template to Runethread v0.8.0
+
+on:
+  push:
+    branches:
+      - runethread/migrate-v0.8.0
+
+permissions:
+  contents: write
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out migration branch
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+
+      - name: Detect completed migration
+        id: state
+        run: |
+          if jq -e '.runethread_version == "v0.8.0" and .contract_version == 8' .runethread/config.json >/dev/null; then
+            echo "done=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "done=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Set up Go
+        if: steps.state.outputs.done != 'true'
+        uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7
+        with:
+          go-version: '1.27.0'
+          cache: false
+
+      - name: Install published Runethread v0.8.0
+        if: steps.state.outputs.done != 'true'
+        run: go install github.com/runethread/core/cmd/runethread@v0.8.0
+
+      - name: Upgrade and verify template
+        if: steps.state.outputs.done != 'true'
+        run: |
+          RT="$(go env GOPATH)/bin/runethread"
+          "$RT" version
+          "$RT" upgrade .
+          "$RT" index --check .
+          "$RT" validate .
+
+      - name: Commit verified migration output
+        if: steps.state.outputs.done != 'true'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git diff --cached --check
+          git commit -m 'chore: migrate memory template to Runethread v0.8.0'
+          git push origin HEAD:runethread/migrate-v0.8.0
